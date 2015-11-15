@@ -1,0 +1,45 @@
+﻿/*div .background {
+    background:url(https://upload.wikimedia.org/wikipedia/commons/d/d0/DVD-Video_bottom-side.jpg) center;
+    width:auto;
+    border: 1px solid black;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}*/
+
+div.transbox {
+    margin: 1px;
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color: white;
+    border: 1px solid black;
+    /*filter:alpha(opacity=60);*/
+}
+
+body {
+    padding-top: 100px;
+    padding-bottom: 0px;
+    background: url(Images/DVD-Video_bottom-side.jpg) center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    opacity: 0.95;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
