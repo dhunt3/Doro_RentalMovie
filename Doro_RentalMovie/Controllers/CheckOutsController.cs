@@ -55,7 +55,18 @@ namespace Doro_RentalMovie.Controllers
         public ActionResult Create()
         {
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Last_Name");
-            ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title");
+            /*var moviesId = db.Movies.Include(m => m.MovieID);
+            var checkOutMovieId = db.CheckOuts.Include(c => c.MovieID);
+            if (moviesId != checkOutMovieId)
+            {*/
+                //ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title");
+                var availableMovies = from movie in db.Movies
+                                      join checkout in db.CheckOuts
+                                      on movie.MovieID equals checkout.MovieID
+                                      where checkout.MovieID == null
+                                      select movie;
+                ViewBag.MovieID = new SelectList(availableMovies, "MovieID", "Title");
+            //}
             return View();
         }
 

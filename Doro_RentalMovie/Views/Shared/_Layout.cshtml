@@ -17,13 +17,24 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        D'oro Movie Rentals
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+                        <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
+                        <li>@Html.ActionLink("Checkouts", "Index", "CheckOuts")</li>
+                    </ul>
+                </div>
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button>-->
 
-                @Html.ActionLink("D'oro Movie Rentals", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <!--@@Html.ActionLink("D'oro Movie Rentals", "Index", "Home", new { area = "" }, new { @@class = "navbar-brand" })-->
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
