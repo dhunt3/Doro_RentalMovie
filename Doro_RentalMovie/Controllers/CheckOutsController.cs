@@ -24,7 +24,7 @@ namespace Doro_RentalMovie.Controllers
             var checkOuts = db.CheckOuts.Include(c => c.Customer).Include(c => c.Movie);
             return View(checkOuts.ToList());
         }
-
+        [Authorize]
         public ActionResult Overdue()   //will select overdue accounts. I created this
         {
             var checkOuts = db.CheckOuts.Include(c => c.Customer).Include(c => c.Movie)
@@ -59,6 +59,7 @@ namespace Doro_RentalMovie.Controllers
             var checkOutMovieId = db.CheckOuts.Include(c => c.MovieID);
             if (moviesId != checkOutMovieId)
             {*/
+            
                 //ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title");
                 var availableMovies = from movie in db.Movies
                                       join checkout in db.CheckOuts
@@ -75,7 +76,7 @@ namespace Doro_RentalMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CheckOutID,Price,CustomerID,MovieID,Checkout_Date,Return_Date")] CheckOut checkOut)
+        public ActionResult Create([Bind(Include = "CheckOutID,Price,CustomerID,MovieID,Checkout_Date,Return_Date,Days_Late,Late_Fees")] CheckOut checkOut)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +121,7 @@ namespace Doro_RentalMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CheckOutID,Price,CustomerID,MovieID,Checkout_Date,Return_Date")] CheckOut checkOut)
+        public ActionResult Edit([Bind(Include = "CheckOutID,Price,CustomerID,MovieID,Checkout_Date,Return_Date,Days_Late,Late_Fees")] CheckOut checkOut)
         {
             if (ModelState.IsValid)
             {

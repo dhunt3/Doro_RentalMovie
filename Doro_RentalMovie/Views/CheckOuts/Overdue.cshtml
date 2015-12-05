@@ -7,7 +7,7 @@
 <h2>Overdue</h2>
 
 <p>
-    @Html.ActionLink("View Overdue Accounts", "Overdue")
+    @Html.ActionLink("View all Checkouts", "Index")
 </p>
 <table class="table">
     <tr>
@@ -25,6 +25,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Movie.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Days_Late)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Late_Fees)
         </th>
         <th></th>
     </tr>
@@ -45,6 +51,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Movie.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Days_Late)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Late_Fees)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CheckOutID }) |

@@ -15,6 +15,8 @@
           <Property Name="MovieID" Type="int" Nullable="false" />
           <Property Name="Checkout Date" Type="datetime" />
           <Property Name="Return Date" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Days Late" Type="int" />
+          <Property Name="Late Fees" Type="decimal" Precision="22" Scale="2" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -124,13 +126,15 @@
             <PropertyRef Name="CheckOutID" />
           </Key>
           <Property Name="CheckOutID" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="Price" Type="Decimal" Precision="3" Scale="2" DefaultValue="2.99" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="MovieID" Type="Int32" Nullable="false" />
           <Property Name="Checkout_Date" Type="DateTime" Precision="3" />
           <Property Name="Return_Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CheckOut_Customer" FromRole="CheckOut" ToRole="Customer" />
           <NavigationProperty Name="Movie" Relationship="Self.FK_CheckOut_Movie" FromRole="CheckOut" ToRole="Movie" />
+          <Property Name="Days_Late" Type="Int32" />
+          <Property Name="Late_Fees" Type="Decimal" Precision="22" Scale="2" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -246,6 +250,8 @@
           <EntitySetMapping Name="CheckOuts">
             <EntityTypeMapping TypeName="masterMovieModel.CheckOut">
               <MappingFragment StoreEntitySet="CheckOut">
+                <ScalarProperty Name="Late_Fees" ColumnName="Late Fees" />
+                <ScalarProperty Name="Days_Late" ColumnName="Days Late" />
                 <ScalarProperty Name="CheckOutID" ColumnName="CheckOutID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
