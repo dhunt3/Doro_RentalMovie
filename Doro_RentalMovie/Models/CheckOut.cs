@@ -28,13 +28,20 @@ namespace Doro_RentalMovie.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public Nullable<System.DateTime> Checkout_Date { get; set; }
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public Nullable<System.DateTime> Return_Date { get; set; }
+        public Nullable<System.DateTime> Return_Date
+        {
+            get
+            {
+                return Checkout_Date.Value.AddDays(3);
+            }
+            set { }
+        }
 
         public Nullable<int> Days_Late
         {
             get
             {
-                DateTime today = DateTime.Now;
+                DateTime today = DateTime.Now.Date;
                 TimeSpan amountOfDays = today.Subtract(Return_Date.Value);
                 return Convert.ToInt32(amountOfDays.TotalDays);
             }
@@ -42,26 +49,33 @@ namespace Doro_RentalMovie.Models
             set { }
 
         }
-        public Nullable<decimal> Late_Fees { get; set; }
+        public Nullable<decimal> Late_Fees
+        {
+            get
+            {
+                return Days_Late * Price;
+            }
+            set { }
+        }
 
         public virtual Customer Customer { get; set; }
         public virtual Movie Movie { get; set; }
 
-        /* public IList<MovieList> MovieList{get;set;}
-         public IList<SelectListItem> PriceListSelectListItem
-         {
-             get
-             {
-                    var list = (from item in MovieList
-                             select new SelectListItem()
-                             {
-                                 Text = item.customerID.ToString(CultureInfo.InvariantCulture),
-                                 Value = item.selectedCustomer.ToString(CultureInfo.InvariantCulture)
-                             }).ToList();
-                 return list;
-             }
-             set{}
-         } */
+        /*public IList<Movies> MovieList{get;set;}
+        public IList<SelectListItem> PriceListSelectListItem
+        {
+            get
+            {
+                   var list = (from item in MovieList
+                            select new SelectListItem()
+                            {
+                                Text = item.customerID.ToString(CultureInfo.InvariantCulture),
+                                Value = item.selectedCustomer.ToString(CultureInfo.InvariantCulture)
+                            }).ToList();
+                return list;
+            }
+            set{}
+        } */
 
     }
 }
