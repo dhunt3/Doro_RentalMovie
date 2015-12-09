@@ -11,7 +11,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>CheckOut</h4>
         <hr />
@@ -32,64 +32,140 @@
             </div>
         </div>-->
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CustomerID, "CustomerID", htmlAttributes: new { @class = "control-label col-md-2" })
+       <!-- <div class="form-group">
+            @@Html.LabelFor(model => model.CustomerID, "Customer", htmlAttributes: new { @@class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
-                <p>Don't see the customer you need? <div>
-    @Html.ActionLink("Add New Customer", "Create", "Customers")
-</div></p>
+                @@Html.DropDownList("CustomerID", null, htmlAttributes: new { @@class = "form-control" })
+                @@Html.ValidationMessageFor(model => model.CustomerID, "", new { @@class = "text-danger" })
+                <p>
+                    Don't see the customer you need? <div>
+                        @@Html.ActionLink("Add New Customer", "Create", "Customers")
+                    </div>
+                </p>
             </div>
+
+        </div>-->
+
+        <div class="form-group">
+            
+                <label class="control-label col-md-2" for="lastName">Last Name</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="lastName" name="lastName">
+                        <option value=""></option>
+                    </select>
+                </div>
             
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MovieID, "MovieID", htmlAttributes: new { @class = "control-label col-md-2" })
+            
+                <label class="control-label col-md-2" for="firstName">First Name</label>
+            <div class="col-md-10">
+                <select class="form-control" id="firstName" name="firstName">
+                    <option value=""></option>
+                </select>
+
+                <p>
+                    Don't see the customer you need? <div>
+                        @Html.ActionLink("Add New Customer", "Create", "Customers")
+                    </div>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MovieID, "Movie", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("MovieID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MovieID, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        
-            <div class="form-group" >
 
-                @Html.LabelFor(model => model.Checkout_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                
-                <div class='col-sm-10'>
-                    @Html.EditorFor(model => model.Checkout_Date, new { htmlAttributes = new { @class = "form-control", @id="datepicker" } })
-                    @Html.ValidationMessageFor(model => model.Checkout_Date, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Checkout_Date, "Checkout Date", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class='col-sm-10'>
+                @Html.EditorFor(model => model.Checkout_Date, new { htmlAttributes = new { @class = "form-control", @id = "datepicker" } })
+                @Html.ValidationMessageFor(model => model.Checkout_Date, "", new { @class = "text-danger" })
             </div>
-      
+        </div>
 
 
-                    <!--<div class="form-group">
-                @@Html.LabelFor(model => model.Return_Date, htmlAttributes: new { @@class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @@Html.EditorFor(model => model.Return_Date, new { htmlAttributes = new { @@class = "form-control" } })
-                    @@Html.ValidationMessageFor(model => model.Return_Date, "", new { @@class = "text-danger" })
-                </div>
-            </div>-->
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
-                        </div>
-                    </div>
-                </div>
+        <!--<div class="form-group">
+            @@Html.LabelFor(model => model.Return_Date, htmlAttributes: new { @@class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @@Html.EditorFor(model => model.Return_Date, new { htmlAttributes = new { @@class = "form-control" } })
+                @@Html.ValidationMessageFor(model => model.Return_Date, "", new { @@class = "text-danger" })
+            </div>
+        </div>-->
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 
 }
-                <div>
-                    @Html.ActionLink("Back to List", "Index")
-                </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
 
-                @section Scripts {
-                    @Scripts.Render("~/bundles/jqueryval")
-                }
-<script>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+        <script>
 
-    $("#datepicker").datepicker();
+            $("#datepicker").datepicker();
 
-</script>
+        </script>
+        <script src="../../Scripts/jquery-1.11.2.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Populate categories when the page is loaded.
+                $.getJSON('/CheckOuts/GetLastName', function (data) {
+                    // Ajax success callback function. Populate dropdown from Json data returned from server.
+                    $('#lastName option').remove();
+                    $('#lastName').append('<option value=""></option');
+                    for (i = 0; i < data.length; i++) {
+                        $('#lastName').append('<option value="' + data[i].CustomerID + '">' + data[i].Last_Name + '</option');
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    // Ajax fail callback function.
+                    alert('Error getting Last Names!');
+                });
+
+                // First dropdown selection change event handler
+                $('#lastName').change(function () {
+                    var intCustid = $(this).find(":selected").val();
+                    if (intCustid.length > 0) {
+                        // Populate First Names.
+                        $.getJSON('/CheckOuts/GetFirstName', { intCustID: intCustid }, function (data) {
+                            // Ajax success callback function. Populate dropdown from Json data returned from server.
+                            $('#firstName option').remove();
+                            $('#firstName').append('<option value=""></option');
+                            for (i = 0; i < data.length; i++) {
+                                $('#firstName').append('<option value="' + data[i].CustomerID + '">' + data[i].First_Name + '</option');
+                            }
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            // Ajax fail callback function.
+                            debugger;
+                            alert('Error getting First Names!');
+                        });
+                    }
+                    else {
+                        // Remove all second dropdown options if empty option is selected in first dropdown.
+                        $('#firstName option').remove();
+                        $('#firstName').append('<option value=""></option');
+                    }
+                });
+            });
+        </script>
+
+
+
+

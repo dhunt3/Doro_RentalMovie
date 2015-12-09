@@ -17,7 +17,6 @@ namespace Doro_RentalMovie.Models
         public Customer()
         {
             this.CheckOuts = new HashSet<CheckOut>();
-            this.ReturnMovies = new HashSet<ReturnMovie>();
         }
     
         public int CustomerID { get; set; }
@@ -26,6 +25,5 @@ namespace Doro_RentalMovie.Models
         public string Phone_Number { get; set; }
     
         public virtual ICollection<CheckOut> CheckOuts { get; set; }
-        public virtual ICollection<ReturnMovie> ReturnMovies { get; set; }
     }
 }

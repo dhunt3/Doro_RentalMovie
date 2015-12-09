@@ -51,10 +51,50 @@ namespace Doro_RentalMovie.Controllers
             return View(checkOut);
         }
 
+        public ActionResult GetLastName()
+        {
+            /*var lastName = from customer in db.Customers
+                           join checkout in db.CheckOuts
+                           on customer.CustomerID equals checkout.CustomerID into cc
+                           from checkout in cc.DefaultIfEmpty()
+                           where checkout.Late_Fees.Value < 19.99m || checkout.Late_Fees.Value == null
+                           select customer.Last_Name;*/
+            /*var lastName = db.CheckOuts.Where(lf => lf.Late_Fees < 14.99m || lf.Late_Fees == null)
+                            .DefaultIfEmpty()
+                            .Join(db.Customers,
+                                  lf => lf.CustomerID,
+                                  c => c.CustomerID,
+                                  (lf, c) => c);*/
+            
+            var lastName = db.Customers
+                
+                .Select(c => new { c.CustomerID, c.Last_Name })
+                .OrderBy(c => c.Last_Name);
+            return Json(lastName, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetFirstName(int intCustID)
+        {
+            var firstName = db.Customers
+                .Where(p => p.CustomerID == intCustID)
+        .Select(p => new { p.CustomerID, p.First_Name })
+        .OrderBy(p => p.First_Name);
+            return Json(firstName, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: CheckOuts/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Last_Name");
+            var availableCustomers = from customer in db.Customers
+                                     join checkout in db.CheckOuts
+                                     on customer.CustomerID equals checkout.CustomerID into cc
+                                     from checkout in cc.DefaultIfEmpty()
+                                     where checkout.Late_Fees.Value < 19.99m || checkout.Late_Fees.Value == null
+                                     select customer.Last_Name;
+                                     //select new {customer.CustomerID, customer.Last_Name};
+
+            ViewBag.CustomerID = new SelectList(availableCustomers);
+            //ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Last_Name");
             /*var moviesId = db.Movies.Include(m => m.MovieID);
             var checkOutMovieId = db.CheckOuts.Include(c => c.MovieID);
             if (moviesId != checkOutMovieId)
@@ -114,7 +154,15 @@ namespace Doro_RentalMovie.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Last_Name", checkOut.CustomerID);
-            ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title", checkOut.MovieID);
+            var availableMovies = //db.CheckOuts.Include(m => m.MovieID == null || m.MovieID == 0);
+                                      from movie in db.Movies
+                                      join checkout in db.CheckOuts
+                                      on movie.MovieID equals checkout.MovieID into mc
+                                      from checkout in mc.DefaultIfEmpty()
+                                      where checkout.MovieID == null
+                                      select new { movie.MovieID, movie.Title };
+            ViewBag.MovieID = new SelectList(availableMovies, "MovieID", "Title", checkOut.MovieID);
+            //ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title", checkOut.MovieID);
             return View(checkOut);
         }
 
@@ -132,7 +180,15 @@ namespace Doro_RentalMovie.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "Last_Name", checkOut.CustomerID);
-            ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title", checkOut.MovieID);
+            var availableMovies = //db.CheckOuts.Include(m => m.MovieID == null || m.MovieID == 0);
+                                      from movie in db.Movies
+                                      join checkout in db.CheckOuts
+                                      on movie.MovieID equals checkout.MovieID into mc
+                                      from checkout in mc.DefaultIfEmpty()
+                                      where checkout.MovieID == null
+                                      select new { movie.MovieID, movie.Title };
+            ViewBag.MovieID = new SelectList(availableMovies, "MovieID", "Title", checkOut.MovieID);
+            //ViewBag.MovieID = new SelectList(db.Movies, "MovieID", "Title", checkOut.MovieID);
             return View(checkOut);
         }
 

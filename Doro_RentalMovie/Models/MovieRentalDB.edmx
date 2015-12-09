@@ -36,17 +36,6 @@
           <Property Name="Director" Type="nvarchar" MaxLength="50" />
           <Property Name="Genre" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="ReturnMovie">
-          <Key>
-            <PropertyRef Name="ReturnMovieID" />
-          </Key>
-          <Property Name="ReturnMovieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="MovieID" Type="int" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" />
-          <Property Name="Director" Type="nvarchar" MaxLength="50" />
-          <Property Name="Genre" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <Association Name="FK_CheckOut_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="CheckOut" Type="Self.CheckOut" Multiplicity="*" />
@@ -71,35 +60,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReturnMovie_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="ReturnMovie" Type="Self.ReturnMovie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="ReturnMovie">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReturnMovie_Movie">
-          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
-          <End Role="ReturnMovie" Type="Self.ReturnMovie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Movie">
-              <PropertyRef Name="MovieID" />
-            </Principal>
-            <Dependent Role="ReturnMovie">
-              <PropertyRef Name="MovieID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="masterMovieModelStoreContainer">
           <EntitySet Name="CheckOut" EntityType="Self.CheckOut" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReturnMovie" EntityType="Self.ReturnMovie" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CheckOut_Customer" Association="Self.FK_CheckOut_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="CheckOut" EntitySet="CheckOut" />
@@ -107,14 +71,6 @@
           <AssociationSet Name="FK_CheckOut_Movie" Association="Self.FK_CheckOut_Movie">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="CheckOut" EntitySet="CheckOut" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReturnMovie_Customer" Association="Self.FK_ReturnMovie_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ReturnMovie" EntitySet="ReturnMovie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReturnMovie_Movie" Association="Self.FK_ReturnMovie_Movie">
-            <End Role="Movie" EntitySet="Movie" />
-            <End Role="ReturnMovie" EntitySet="ReturnMovie" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -145,7 +101,6 @@
           <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone_Number" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="CheckOuts" Relationship="Self.FK_CheckOut_Customer" FromRole="Customer" ToRole="CheckOut" />
-          <NavigationProperty Name="ReturnMovies" Relationship="Self.FK_ReturnMovie_Customer" FromRole="Customer" ToRole="ReturnMovie" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -156,20 +111,6 @@
           <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CheckOuts" Relationship="Self.FK_CheckOut_Movie" FromRole="Movie" ToRole="CheckOut" />
-          <NavigationProperty Name="ReturnMovies" Relationship="Self.FK_ReturnMovie_Movie" FromRole="Movie" ToRole="ReturnMovie" />
-        </EntityType>
-        <EntityType Name="ReturnMovie">
-          <Key>
-            <PropertyRef Name="ReturnMovieID" />
-          </Key>
-          <Property Name="ReturnMovieID" Type="Int32" Nullable="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="MovieID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_ReturnMovie_Customer" FromRole="ReturnMovie" ToRole="Customer" />
-          <NavigationProperty Name="Movie" Relationship="Self.FK_ReturnMovie_Movie" FromRole="ReturnMovie" ToRole="Movie" />
         </EntityType>
         <Association Name="FK_CheckOut_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
@@ -195,35 +136,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReturnMovie_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="ReturnMovie" Type="Self.ReturnMovie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="ReturnMovie">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReturnMovie_Movie">
-          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
-          <End Role="ReturnMovie" Type="Self.ReturnMovie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Movie">
-              <PropertyRef Name="MovieID" />
-            </Principal>
-            <Dependent Role="ReturnMovie">
-              <PropertyRef Name="MovieID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="masterMovieEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CheckOuts" EntityType="Self.CheckOut" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Movies" EntityType="Self.Movie" />
-          <EntitySet Name="ReturnMovies" EntityType="Self.ReturnMovie" />
           <AssociationSet Name="FK_CheckOut_Customer" Association="Self.FK_CheckOut_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="CheckOut" EntitySet="CheckOuts" />
@@ -231,14 +147,6 @@
           <AssociationSet Name="FK_CheckOut_Movie" Association="Self.FK_CheckOut_Movie">
             <End Role="Movie" EntitySet="Movies" />
             <End Role="CheckOut" EntitySet="CheckOuts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReturnMovie_Customer" Association="Self.FK_ReturnMovie_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="ReturnMovie" EntitySet="ReturnMovies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReturnMovie_Movie" Association="Self.FK_ReturnMovie_Movie">
-            <End Role="Movie" EntitySet="Movies" />
-            <End Role="ReturnMovie" EntitySet="ReturnMovies" />
           </AssociationSet>
           </EntityContainer>
         </Schema>
@@ -274,18 +182,6 @@
           <EntitySetMapping Name="Movies">
             <EntityTypeMapping TypeName="masterMovieModel.Movie">
               <MappingFragment StoreEntitySet="Movie">
-                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Director" ColumnName="Director" />
-                <ScalarProperty Name="Genre" ColumnName="Genre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReturnMovies">
-            <EntityTypeMapping TypeName="masterMovieModel.ReturnMovie">
-              <MappingFragment StoreEntitySet="ReturnMovie">
-                <ScalarProperty Name="ReturnMovieID" ColumnName="ReturnMovieID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="MovieID" ColumnName="MovieID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Director" ColumnName="Director" />

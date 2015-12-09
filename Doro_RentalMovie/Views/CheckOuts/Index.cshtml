@@ -12,7 +12,11 @@
 <p>
     @Html.ActionLink("View Overdue Accounts", "Overdue")
 </p>
-<table class="table">
+<p>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <i class="fa fa-search fa-1x"><input type="text" id="search" /></i>
+</p>
+<table class="table" id="projectTable">
     <tr>
         <th>
             <!--@@Html.DisplayNameFor(model => model.Price)-->
@@ -22,12 +26,12 @@
             Checkout Date
         </th>
         <th>
-            
+
             Return Date
         </th>
         <th>
             <!--@@Html.DisplayNameFor(model => model.Customer.Last_Name)-->
-            Last Name
+            Customer's Last Name
         </th>
         <th>
             <!--@@Html.DisplayNameFor(model => model.Movie.Title)-->
@@ -36,29 +40,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Checkout_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Return_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.Last_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Movie.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CheckOutID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CheckOutID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CheckOutID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Checkout_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Return_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CheckOutID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CheckOutID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CheckOutID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<script src="~/Scripts/SearchBox.js"></script>

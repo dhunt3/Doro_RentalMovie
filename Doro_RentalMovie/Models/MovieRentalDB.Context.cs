@@ -28,6 +28,5 @@ namespace Doro_RentalMovie.Models
         public virtual DbSet<CheckOut> CheckOuts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<ReturnMovie> ReturnMovies { get; set; }
     }
 }

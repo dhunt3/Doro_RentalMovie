@@ -167,7 +167,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
-    <Compile Include="Controllers\ReturnMoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,9 +196,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieRentalDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReturnMovie.cs">
-      <DependentUpon>MovieRentalDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -259,6 +255,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SearchBox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -310,11 +307,6 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
-    <Content Include="Views\ReturnMovies\Create.cshtml" />
-    <Content Include="Views\ReturnMovies\Delete.cshtml" />
-    <Content Include="Views\ReturnMovies\Details.cshtml" />
-    <Content Include="Views\ReturnMovies\Edit.cshtml" />
-    <Content Include="Views\ReturnMovies\Index.cshtml" />
     <Content Include="Views\CheckOuts\Overdue.cshtml" />
   </ItemGroup>
   <ItemGroup>

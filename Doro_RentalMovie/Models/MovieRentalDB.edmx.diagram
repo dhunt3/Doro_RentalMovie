@@ -8,11 +8,8 @@
         <EntityTypeShape EntityType="masterMovieModel.CheckOut" Width="1.5" PointX="4.875" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="masterMovieModel.Customer" Width="1.5" PointX="2.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="masterMovieModel.Movie" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="masterMovieModel.ReturnMovie" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="masterMovieModel.FK_CheckOut_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="masterMovieModel.FK_CheckOut_Movie" ManuallyRouted="false" />
-        <AssociationConnector Association="masterMovieModel.FK_ReturnMovie_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="masterMovieModel.FK_ReturnMovie_Movie" ManuallyRouted="false" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
